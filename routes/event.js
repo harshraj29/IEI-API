@@ -1,11 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const eventController = require('../controllers/event');
 
+// GET - Get all events
+router.get('/', eventController.getEvents);
 
-const {getAllEvent,getAllEventTesting}  = require("../controllers/event");
+// POST - Create a new event
+router.post('/', eventController.createEvent);
 
-router.route("/").get(getAllEvent);
-router.route("/testing").get(getAllEventTesting);
+// PUT - Update an event's details
+router.put('/:id', eventController.updateEvent);
 
+// DELETE - Delete an event
+router.delete('/:id', eventController.deleteEvent);
 
 module.exports = router;
