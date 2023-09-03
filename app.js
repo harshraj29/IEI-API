@@ -5,13 +5,18 @@ const connectDB = require("./config/connect");
 
 const PORT = process.env.PORT || 5000;
 
-const events_routes = require("./routes/event");
+const pastEvents = require("./routes/event");
+const upcomingRoutes = require("./routes/upcoming");
 
 app.get("/", (req, res) => {
     res.send("Working");
 });
 
-app.use("/api/events", events_routes);
+app.use(express.json());
+
+app.use("/api/pastEvents", pastEvents);
+
+app.use("/api/upcoming", upcomingRoutes);
 
 const start = async () => {
     try {

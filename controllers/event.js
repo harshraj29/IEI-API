@@ -1,18 +1,23 @@
 const Event = require("../models/event");
 
-// Get all events
-module.exports.getEvents = function (req, res) {
+// Get all PastEvents
+module.exports.getPastEvents = function (req, res) {
     Event.find({})
-        .then((foundEvents) => {
-            res.status(200).json(foundEvents);
+        .then((foundPastEvents) => {
+            res.status(200).json(foundPastEvents);
         })
         .catch((err) => {
-            res.status(500).json({ error: "Error fetching events" });
+            res.status(500).json({ error: "Error fetching PastEvents" });
         });
 };
 
 // Create a new event
 module.exports.createEvent = function (req, res, next) {
+    // Check if the required fields exist in the request body
+    if (!req.body.EventName || !req.body.description || !req.body.Date || !req.body.Venue || !req.body.Image) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
     const newEvent = new Event({
         EventName: req.body.EventName,
         description: req.body.description,

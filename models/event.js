@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const eventSchema = new mongoose.Schema({
+const PastEventschema = new mongoose.Schema({
     EventName: String,
     description: String,
     Date: Date,
@@ -9,6 +9,6 @@ const eventSchema = new mongoose.Schema({
     Image: String,
 })
 
-const event = mongoose.model("event", eventSchema);
+const PastEvent = mongoose.model("PastEvents", PastEventschema);
 
-module.exports = event;
+module.exports = PastEvent;
