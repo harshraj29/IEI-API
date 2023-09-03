@@ -14,9 +14,9 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 
-app.use("/api/pastEvents", pastEvents);
+app.use("/event/past", pastEvents);
 
-app.use("/api/upcoming", upcomingRoutes);
+app.use("/event/upcoming", upcomingRoutes);
 
 const start = async () => {
     try {
