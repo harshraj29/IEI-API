@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const PastEventschema = new mongoose.Schema({
     EventName: String,
     description: String,
-    Date: Date,
+    Date: String,
     Venue: String,
     Image: String,
 })
