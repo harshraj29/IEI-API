@@ -7,6 +7,7 @@ const upcomingEventSchema = new mongoose.Schema({
     Venue: String,
     Time: String,
     Image: String,
+    Link: String,
 });
 
 const UpcomingEvent = mongoose.model("UpcomingEvent", upcomingEventSchema);

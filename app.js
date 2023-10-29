@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors"); // Import the cors package
+const cors = require("cors");
 const app = express();
 const connectDB = require("./config/connect");
 
@@ -14,9 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.json());
-
-// Enable CORS for all routes by using the cors middleware
-app.use(cors()); // Add this line
+app.use(cors());
 
 app.use("/event/past", pastEvents);
 app.use("/event/upcoming", upcomingRoutes);
