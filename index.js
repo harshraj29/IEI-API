@@ -1,10 +1,11 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const connectDB = require("./config/connect");
+const mongoose = require("mongoose"); 
 
 const PORT = process.env.PORT || 3000;
+
+const mongoURI = "mongodb+srv://ieicse:djR81oapTljwGNHU@ieidb.d7nudln.mongodb.net/IEIDB?retryWrites=true&w=majority";
 
 const pastEvents = require("./routes/event");
 const upcomingRoutes = require("./routes/upcoming");
@@ -23,12 +24,15 @@ app.use('/gallery', galleryRoutes);
 
 const start = async () => {
     try {
-        await connectDB(process.env.MONGODB_URL);
+        await mongoose.connect(mongoURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         app.listen(PORT, () => {
             console.log(`${PORT} Started`);
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
