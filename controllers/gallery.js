@@ -17,7 +17,7 @@ exports.createGalleryItem = async (req, res) => {
   try {
     const newGalleryItem = new Gallery({ title, description, imageUrl });
     const savedItem = await newGalleryItem.save();
-    res.json(savedItem);
+    res.status(201).json(savedItem); // Use 201 Created status code for successful creation
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to create a new gallery item" });
@@ -30,6 +30,9 @@ exports.updateGalleryItem = async (req, res) => {
   const { title, description, imageUrl } = req.body;
   try {
     const updatedItem = await Gallery.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true });
+    if (!updatedItem) {
+      return res.status(404).json({ message: "Gallery item not found" });
+    }
     res.json(updatedItem);
   } catch (error) {
     console.error(error);
@@ -41,7 +44,10 @@ exports.updateGalleryItem = async (req, res) => {
 exports.deleteGalleryItem = async (req, res) => {
   const { id } = req.params;
   try {
-    await Gallery.findByIdAndRemove(id);
+    const deletedItem = await Gallery.findByIdAndRemove(id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Gallery item not found" });
+    }
     res.json({ message: "Gallery item deleted" });
   } catch (error) {
     console.error(error);
